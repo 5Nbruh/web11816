@@ -1,0 +1,186 @@
+<html lang="en">
+mp3
+<head>
+  <meta charset="UTF-8">
+  <title>圓神</title>
+  <style>
+    #border {
+      width: 480px;
+      height: 720px;
+      border: 3px solid gray;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    #d1,
+    #d2,
+    #d3,
+    #d4 {
+      width: 25%;
+      height: 17.5%;
+      border: 1px solid black;
+      position: absolute;
+      bottom: 0;
+    }
+
+    #d1 {
+      left: 0;
+    }
+
+    #d2 {
+      left: 25%;
+    }
+
+    #d3 {
+      left: 50%;
+    }
+
+    #d4 {
+      left: 75%;
+    }
+
+    .c1 {
+      width: 120px;
+      height: 120px;
+      position: absolute;
+    }
+  </style>
+  <script>
+    function get(id) {
+      return document.getElementById(id);
+    }
+
+    function getRnd(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var mydir = {};
+    var intervalId = null;
+    var score = 0;
+    var gameTimerId = null;
+    var clickAudio = new Audio('pic/cake/homo.mp3');
+
+    function gameInit() {
+      mydir = {68: 0, 70: 0, 74: 0, 75: 0};
+      score = 0;
+      document.getElementById("score").textContent = "Score: " + score;
+      document.addEventListener('keydown', mykeydown);
+      document.addEventListener('keyup', mykeyup);
+    }
+
+    function startGame() {
+      gameInit();
+      var s = getRnd(250, 400);
+      intervalId = setInterval(createCircle, s);
+      document.getElementById("start").style.display = "none";
+      gameTimerId = setTimeout(endGame, 60000);
+    }
+
+    function mykeydown(ev) {
+      ev.preventDefault();
+      mydir[ev.keyCode] = 1;
+    }
+
+    function mykeyup(ev) {
+      ev.preventDefault();
+      mydir[ev.keyCode] = 0;
+    }
+
+    function combo(u) {
+      if (mydir[68] && u.pos.y > 550 && u.pos.y < 700 && u.pos.x === 0) {
+        return die(u, true);
+        score++;
+      }
+      if (mydir[70] && u.pos.y > 550 && u.pos.y < 700 && u.pos.x === 120) {
+        return die(u, true);
+        score++;
+      }
+      if (mydir[74] && u.pos.y > 550 && u.pos.y < 700 && u.pos.x === 240) {
+        return die(u, true);
+        score++;
+      }
+      if (mydir[75] && u.pos.y > 550 && u.pos.y < 700 && u.pos.x === 360) {
+        return die(u, true);
+        score++;
+      }
+    }
+
+    function createCircle() {
+      var u1 = document.createElement("img");
+      u1.src = "pic/cake/circle.png";
+      u1.className = "c1";
+      u1.pos = {x: getRnd(0, 3) * 120, y: 0};
+      u1.style.left = u1.pos.x + "px";
+      u1.style.top = "0px";
+      u1.onclick = function () {
+        die(u1, true);
+      };
+      get("border").appendChild(u1);
+      u1.move = setInterval(move, 10, u1);
+
+      setTimeout(function () {
+        var u2 = document.createElement("img");
+        u2.src = "pic/cake/circle.png";
+        u2.className = "c1";
+        do {
+          u2.pos = {x: getRnd(0, 3) * 120, y: 0};
+        } while (u2.pos.x === u1.pos.x);
+        u2.style.left = u2.pos.x + "px";
+        u2.style.top = "0px";
+        u2.onclick = function () {
+          die(u2, true);
+        };
+        get("border").appendChild(u2);
+        u2.move = setInterval(move, 10, u2);
+      }, 500);
+    }
+
+    function die(obj, clicked) {
+      clearInterval(obj.move);
+      obj.remove();
+      document.getElementById("score").textContent = "Score: " + score;
+      clickAudio.play();
+    }
+
+
+    function move(u) {
+      if (u.pos.y > 750) {
+        return die(u, false);
+        score = score - 2;
+      }
+      u.pos.y += 10;
+      u.style.top = u.pos.y + "px";
+      combo(u);
+    }
+
+    function stop() {
+      clearInterval(intervalId);
+      clearTimeout(gameTimerId);
+      var circles = document.getElementsByClassName("c1");
+      while (circles.length > 0) {
+        clearInterval(circles[0].move);
+        circles[0].remove();
+      }
+      document.getElementById("start").style.display = "inline";
+    }
+
+    function endGame() {
+      stop();
+      alert("遊戲結束！總分數:" + score);
+    }
+  </script>
+</head>
+
+<body>
+  <div id="border">
+    <div id="d1"></div>
+    <div id="d2"></div>
+    <div id="d3"></div>
+    <div id="d4"></div>
+  </div>
+  <button id="start" onclick="startGame();">開始</button>
+  <button onclick="stop();">停止</button>
+  <div id="score">Score: 0</div>
+</body>
+
+</html>

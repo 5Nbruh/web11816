@@ -1,0 +1,139 @@
+<html>
+<head><meta charset="utf8">
+  <title>css</title>
+  
+  <!--選擇器
+
+  選擇器:
+  1)html tag
+  2)html #id
+  3)html .class
+
+  顏色:
+  1)英文名稱
+  2)#色碼 #RRGGBB 00~FF 0~255
+  3)rgb(0~255,0~255,0~255)
+  4)rgba{0~255,0~255,0~255,0~1) //0~1為透明度
+  5)hsl(色相0~360,彩度0~100%,亮度0~100%)
+  6)hsla(色相0~360,彩度0~100%,亮度0~100%,透明度0~1)
+  google:color picker
+  -->
+  <style>
+  p {
+     color:blue;
+     }
+    div {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+    }
+    #d1 {                   c設定標籤:d1-->
+     font-size:20pt;
+     color:red;
+     border:1px solid red ;
+     }
+    .c1 {
+     }
+    #d2 { 
+       background: lightblue;
+       border:1px solid black ;/*solde實線 dashed虛線 dotted紅點 double雙線 */
+       border-right-style: dashed;/*top right bottom left*/
+       border-style: solde dashed dotted double;
+       margin :30px 0;/*外邊界*/
+       padding: 10px;/*內填充*/
+       border-radius: 50px; /* %:相對於長寬 */
+     }
+    #d3 {
+       border: 1px solid black;
+       width:200px; 
+       height:100px;
+  }
+    #d4 {
+       width: 0px;
+       height: 0px;
+       border: 50px solid black;
+       border-color: transparent transparent green transparent;
+  }
+    #d5 {
+       border: 1px solid black;
+       background: linear-gradient(lightblue,blue,darkred,rgb(22,225,22 ),hsl(272deg, 31%, 49%));/*漸層並非一個顏色括號前不可有空白，0% 表示起始邊界，100% 表示結束邊界 ( 邊界為填色的區外邊界 )*/
+    }
+    #d6 {
+      background: linear-gradient(90deg,red 33%,white 33%,white 66%,blue 66%);
+      border:1px solid black ;
+    }
+    #d7 {
+      background: repeating-linear-gradient(135deg,red 20%,white 25%,green 30%,white 35%,red 40%);
+      border:1px solid black ;
+    }
+    #d8 {
+      background: radial-gradient(circle,lightblue,white 20%,green);
+      border:1px solid black ;/*圓心向外放射漸層*/
+    }
+    #d9 {
+      background: repeating-radial-gradient(circle,lightblue 20%,white 30%,lightblue 40%);
+      border:1px solid black ;/*圓心向外放射漸層*/
+    }
+    #d10 {
+      background: conic-gradient(white,blue,green,red,purple);
+      border:1px solid black ;/*圓錐形漸層*/
+    }
+    #d11 {
+      background: repeating-conic-gradient(lightblue 20%,white 30%,lightblue 40%);
+      border:1px solid black ;
+    }
+
+    #d12 {
+      animation-name: kc2;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+    @keyframes kc2 {
+      1% {background: repeating-conic-gradient(lightblue 20%,white 30%,lightblue 40%);}
+      25% {background: repeating-conic-gradient(white 20%,lightblue 30%,white 40%);}
+      50% {background: repeating-conic-gradient(lightblue 20%,white 30%,lighblue 40%);}
+      75% {background: repeating-conic-gradient(white 20%,lightblue 30%,white 40%);}
+      100% {background: repeating-conic-gradient(lightblue 20%,white 30%,lightblue 40%);}
+    }
+
+    #d13 {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        display: block;
+        border-radius: 50%;
+        position: relative:
+        animation-name: ani-circle; /*動畫名稱(自訂)*/
+        animation-duration: 4s; /*一次完整動畫時間為4秒*/
+        animation-iteration-count: infinite; /*播放次數為無限次*/
+        animation-direction: alternate; /*播放方向為先正向再反向*/
+    }
+    @keyframes ani-circle { /*動畫名稱為 ani-circle*/
+        0%   {background-color: red; left: 0px;}
+        25%  {background-color: yellow; left: 50px;}
+        50%  {background-color: blue; left: 80px;}
+        75%  {background-color: green; left: 120px;}
+        100% {background-color: red; left: 200px;}
+    }
+    
+  </style>
+</head>
+<body>
+  <div id="d1" class="c1"></div>
+  <div id="d2" class="c1"></div>
+  <div id="d3"></div>
+  <div id="d4"></div>
+  <div id="d5"></div>
+  <div id="d6"></div>
+  <div id="d7"></div>
+  <div id="d8"></div>
+  <div id="d9"></div>
+  <div id="d10"></div>
+  <div id="d11"></div>
+  <div id="d12"></div>
+  <div id="d13"></div>
+  <div id="d14"></div>
+</body>
+
+  
+</html>

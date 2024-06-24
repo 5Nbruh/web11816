@@ -1,0 +1,71 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>RPG</title>
+  <style>
+    #board {
+      width: 600px;
+      height: 600px;
+      border: 3px solid gray;
+      position: relative;
+    }
+
+    #avt {
+      width: 48px;
+      height: 72px;
+      background: url("pic/rpgmaker1.png");
+      animation: walk 1s steps(3) infinite;
+      /*將過程分三分*/
+      position: absolute;
+      left: 276px;
+      top: 264px;
+    }
+
+    @keyframes walk {
+      0% {
+        background-position-x: 0px;
+      }
+
+      100% {
+        background-position-x: -153px;
+      }
+    }
+  </style>
+  <script>
+    var pos = {x: 276, y: 264};
+    function get(id) {
+      return document.getElementById(id);
+    }
+    function mykey(ev) {
+      ev.preventDefault();
+      var avty = 0;
+      if (ev.key == "ArrowDown") {
+        avtY = 0;
+        pos.y += 5;
+      } else if (ev.key == "ArrowLeft") {
+        avtY = -72;
+        pos.x -= 5;
+      } else if (ev.key == "ArrowRight") {
+        avtY = -144;
+        pos.x += 5;
+      } else if (ev.key == "ArrowUp") {
+        avtY = -216;
+        pos.y -= 5;
+      } else {
+        get("avt").style.animationPlayState = "paused"
+      }
+      get("avt").style.backgroundPositionY = avtY + "px";
+      get("avt").style.left = pos.x + "px";
+      get("avt").style.top = pos.y + "px";
+    }
+  </script>
+</head>
+
+<body onkeydown="mykey(event);">
+  <div id="board">
+    <div id="avt"></div>
+  </div>
+</body>
+
+</html>

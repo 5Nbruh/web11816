@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Game</title>
+    <script>
+      var score = 0; // 定义得分变量
+      var gameStarted = false; // 游戏是否已开始的标志
+      var gameTimer; // 游戏计时器
+
+      // 获取元素
+      function get(id) {
+        return document.getElementById(id);
+      }
+
+      // 生成指定范围内的随机数
+      function getRnd(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      // 创建新的游戏目标
+      function newTarget() {
+        var board = get("board");
+        var bw = parseInt(getComputedStyle(board).width);
+        var bh = parseInt(getComputedStyle(board).height);
+
+        var target = document.createElement("div");
+        target.className = "target";
+        target.score = getRnd(1, 3);
+        var size = target.score * 30;
+
+        var leftPos = getRnd(0, bw - size);
+        var topPos = getRnd(0, bh - size);
+
+        target.style.width = size + "px";
+        target.style.height = size + "px";
+        target.style.left = leftPos + "px";
+        target.style.top = topPos + "px";
+
+        target.style.backgroundColor = getRandomColor(); // 设置随机颜色
+        target.addEventListener("click", hit);
+
+        board.appendChild(target);
+      }
+
+      // 处理点击游戏目标事件
+      function hit(event) {
+        var target = event.target;
+        score += target.score;
+        get("score").innerHTML = score;
+        target.remove();
+      }
+
+      // 生成随机颜色
+      function getRandomColor() {
+        var r = getRnd(0, 255);
+        var g = getRnd(0, 255);
+        var b = getRnd(0, 255);
+        return "rgb(" + r + "," + g + "," + b + ")";
+      }
+
+      // 开始游戏
+      function gameStart() {
+        if (!gameStarted) {
+          score = 0; // 初始化得分
+          get("score").innerHTML = score;
+          gameStarted = true;
+          gameTimer = setInterval(function() {
+            if (get("timer").innerHTML > 0) {
+              get("timer").innerHTML--;
+            } else {
+              clearInterval(gameTimer);
+              gameStarted = false;
+              alert("游戏结束！你的得分是：" + score);
+            }
+          }, 1000);
+          newTarget();
+        }
+      }
+    </script>
+    <style>
+      #board {
+        width: 400px;
+        height: 200px;
+        border: 1px solid black;
+        position: relative; /* 让子元素可以相对于 board 定位 */
+      }
+
+      .target {
+        position: absolute; /* 绝对定位，使得目标可以放置在 board 中的任意位置 */
+        border-radius: 50%; /* 将目标设置为圆形 */
+        cursor: pointer; /* 鼠标指针样式为手型，表示可点击 */
+      }
+    </style>
+  </head>
+  <body>
+    <div>得分 : <span id="score">0</span>分</div>
+    <div>剩余时间 : <span id="timer">30</span>秒</div>
+    <div id="board">
+      <!-- 游戏板块，目标将被放置在这里 -->
+    </div>
+    <button onclick="gameStart()">开始游戏</button> <!-- 点击按钮开始游戏 -->
+  </body>
+</html>

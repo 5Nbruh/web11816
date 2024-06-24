@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Game</title>
+    <script>
+      function get(id) {
+        return document.getElementById(id);
+      }
+
+    function gets(qs) {
+      return document.querySelectorAll(qs);
+    }
+
+      function getRnd(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function gameStart() {
+     get("d1").style.display="none";
+       cards=[1,1,2,2,3,3,4,4,5,5,6,6];
+       cards.sort(function() {return Math.random()-0.5});
+     imgs= gets("img");
+     img.forEach(function(a,i){
+     a.src="pic/"+cards[i]+".png";
+     });
+     setTimeout(function(){
+     imgs.forEach(function(a){
+       a.src="pic/0.png";
+     });
+      },1000)
+    game_started=ture;
+
+    </script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <img src="0.png">
+    <img src="0.png">
+    <img src="0.png">
+    <img src="0.png"><br>
+    <img src="0.png">
+    <img src="0.png">
+    <img src="0.png">
+    <img src="0.png"><br>
+    <img src="0.png">
+    <img src="0.png">
+    <img src="0.png">
+    <img src="0.png"><br>
+    <button id="d1" onclick="gameStart()">开始游戏</button>
+  </body>
+</html>
